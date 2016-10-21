@@ -19,9 +19,13 @@ class PongPaddle(Widget):
             bounced = Vector(-1 * vx, vy)
             vel = bounced * 1.1
             ball.velocity = vel.x, vel.y + offset
+            #ball.r -= 0.1
+            ball.g -= 0.1
+            ball.b -= 0.15
             if(ball.center_y > self.center_y - 50 and ball.center_y < self.center_y + 50):
                 self.height += 10
                 self.y -= 5
+
     def resetPaddle(self):
             self.y = self.center_y - 100
             self.height = 200
@@ -31,11 +35,17 @@ class PongPaddle(Widget):
 class PongBall(Widget):
     velocity_x = NumericProperty(0)
     velocity_y = NumericProperty(0)
+    r = NumericProperty(1)
+    g = NumericProperty(1)
+    b = NumericProperty(1)
     velocity = ReferenceListProperty(velocity_x, velocity_y)
 
     def move(self):
         self.pos = Vector(*self.velocity) + self.pos
-
+    
+    def resetColor(self):            
+            self.g = 1
+            self.b = 1
 
 class PongGame(Widget):
     ball1 = ObjectProperty(None)
@@ -67,11 +77,13 @@ class PongGame(Widget):
             if ball.center_x < self.x:
                 self.player2.score += 1
                 self.player1.resetPaddle()
+                ball.resetColor()
                 self.serve_ball(ball,vel=(4, random.uniform(-1,1)))
                 
             if ball.center_x > self.width:
                 self.player1.score += 1
                 self.player2.resetPaddle()
+                ball.resetColor()
                 self.serve_ball(ball,vel=(-4, random.uniform(-1,1)))
         
     def on_touch_move(self, touch):
