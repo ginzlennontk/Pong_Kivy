@@ -10,9 +10,16 @@
 <PongPaddle>:
     size: 25, 200
     canvas:
+        Color:
+            rgb: 1,1,1
         Rectangle:
-            pos:self.pos
-            size:self.size
+            pos: self.pos
+            size: self.size
+        Color:
+            rgb: 1,0,0
+        Rectangle:
+            pos: self.x , self.center_y - self.height/4
+            size: 25,self.height/2
 
 <PongGame>:
     ball1: pong_ball1
