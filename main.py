@@ -19,8 +19,7 @@ class PongPaddle(Widget):
             bounced = Vector(-1 * vx, vy)
             vel = bounced * 1.1
             ball.velocity = vel.x, vel.y + offset
-            if(ball.center_y > self.center_y - self.height/4 and \
-                ball.center_y < self.center_y + self.height/4):
+            if(ball.center_y > self.center_y - 50 and ball.center_y < self.center_y + 50):
                 self.height += 10
                 self.y -= 5
     def resetPaddle(self):
