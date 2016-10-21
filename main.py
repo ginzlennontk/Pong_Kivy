@@ -19,6 +19,12 @@ class PongPaddle(Widget):
             bounced = Vector(-1 * vx, vy)
             vel = bounced * 1.1
             ball.velocity = vel.x, vel.y + offset
+            self.height += 10
+            self.y -= 5
+    def resetPaddle(self):
+            self.y = self.center_y - 100
+            self.height = 200
+            
 
 
 class PongBall(Widget):
@@ -59,9 +65,12 @@ class PongGame(Widget):
         #went off a side to score point?
             if ball.center_x < self.x:
                 self.player2.score += 1
+                self.player1.resetPaddle()
                 self.serve_ball(ball,vel=(4, random.uniform(-1,1)))
+                
             if ball.center_x > self.width:
                 self.player1.score += 1
+                self.player2.resetPaddle()
                 self.serve_ball(ball,vel=(-4, random.uniform(-1,1)))
         
     def on_touch_move(self, touch):
